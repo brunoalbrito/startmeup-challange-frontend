@@ -1,4 +1,4 @@
-package com.br.startmeup;
+package com.br.startmeup.beans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -7,7 +7,7 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class HibbiesBean {
 
-    private String hobby = "Java Coding";
+    private String hobby = "Java code";
 
     public String getHobby(){
         return hobby;

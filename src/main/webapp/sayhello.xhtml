@@ -1,13 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+<html
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+</h:head>
 
-<head>
-    <title>JSF 2.0 Say Hello</title>
-</head>
-<body>
-    <p>Hey There! My hobby is #{hibbiesBean.hobby}</p>
-</body>
+<h:body>
+    <h2>Primefaces Simple Dialog Example</h2>
+
+    <p:link value="Select Employees" onclick="PF('dlg').show();"/>
+
+    <h:form>
+        <p:dialog header="Employee Selection Dialog" widgetVar="dlg" modal="true">
+            <p:selectManyMenu value="#{empSelectBean.selectedEmployees}">
+                <f:selectItems value="#{empSelectBean.employees}" var="emp"
+                               itemLabel="#{emp}" itemValue="#{emp}"/>
+            </p:selectManyMenu>
+            <!--<p:commandButton value="Submit" update="selectedEmpPanel" onclick="PF('dlg').hide();"/>-->
+        </p:dialog>
+
+        <h3>Selected Employees:</h3>
+        <h:panelGrid id="selectedEmpPanel" columns="1">
+            <ui:repeat value="#{empSelectBean.selectedEmployees}" var="emp">
+                <h:outputText value="#{emp}"/>
+                <br/>
+            </ui:repeat>
+        </h:panelGrid>
+    </h:form>
+
+</h:body>
 </html>

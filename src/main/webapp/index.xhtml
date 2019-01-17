@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>StartMeUp - Challange</title>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"/>
+    <!--<h:outputScript library="primefaces" src="https://code.jquery.com/jquery-2.1.1.min.js" />-->
+    <h:outputScript library="primefaces" name="jquery/jquery.js" target="head"/>
+    <!-- Compiled and minified JavaScript -->
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</h:head>
+<h:body styleClass="cyan light-5">
+    <div class="valign-wrapper" id="login-page">
+        <div class="container">
+            <div class="center-align">
+                <div class="row">
+                    <div class="col s6 offset-s3">
+                        <div class="card">
+                            <div class="card-content">
+                                <img class="reponsive-igm" style="max-width: 64px"
+                                     src="https://designconceitual.com.br/wp-content/uploads/2017/06/3dd22a29691495.55ffd68228546-e1496935549209.jpg"
+                                     alt=""/>
+                                <h:form>
+                                    <p:growl autoUpdate="true"/>
+                                    <div class="row">
+                                        <div class="col s12 input-field">
+                                            <h:inputText id="email"
+                                                         requiredMessage="Email do usuario é requerido"></h:inputText>
+                                            <h:outputLabel for="email" value="Email"></h:outputLabel>
+                                        </div>
+                                        <div class="col s12 input-field">
+                                            <h:inputText id="password"></h:inputText>
+                                            <h:outputLabel for="password" value="Senha"></h:outputLabel>
+                                        </div>
+                                        <label style='float: right;'>
+                                            <a class='pink-text' href='#'><b>Forgot Password?</b></a>
+                                        </label>
+                                        <div class="col s12 input-field">
+                                            <h:commandButton value="Login" action="#"
+                                                             styleClass="s12 btn btn-large"></h:commandButton>
+                                        </div>
+                                    </div>
+                                    <h:commandButton style="padding: 0;border: none;background: none;color: #039be5" type="button" value="Criar conta" onclick="PF('sidebar5').show()"/>
+                                </h:form>
+                            </div>
+                        </div>
+                        <!--MODAL-->
+                        <p:sidebar widgetVar="sidebar5" fullScreen="false" baseZIndex="10000">
+                            <h2 style="font-weight:normal">Cadastrar Usuário</h2>
+
+                            <h:form>
+                                <p:growl autoUpdate="true"/>
+                                <div class="row">
+                                    <div class="col s12 input-field">
+                                        <h:inputText id="nomeCad" required="true"
+                                                     requiredMessage="Nome do usuario é requerido" value="#{usuarioBean.nome}"></h:inputText>
+                                        <h:outputLabel for="nomeCad" value="Nome"></h:outputLabel>
+                                    </div>
+                                    <div class="col s12 input-field">
+                                        <h:inputText id="emailCad" required="true"
+                                                     requiredMessage="Email do usuario é requerido" value="#{usuarioBean.email}"></h:inputText>
+                                        <h:outputLabel for="emailCad" value="Email"></h:outputLabel>
+                                    </div>
+                                    <div class="col s12 input-field">
+                                        <h:inputText id="senhaCad" required="true"
+                                                     requiredMessage="Senha do usuario é requerido" value="#{usuarioBean.senha}"></h:inputText>
+                                        <h:outputLabel for="senhaCad" value="Senha"></h:outputLabel>
+                                    </div>
+                                    <div class="col s12 input-field">
+                                        <h:commandButton value="Cadastrar" action="#{usuarioBean.persistUser}"
+                                                         styleClass="s12 btn btn-large"></h:commandButton>
+                                    </div>
+                                </div>
+                            </h:form>
+
+                            <p:commandButton value="Cancel" oncomplete="PF('sidebar5').hide()"/>
+                        </p:sidebar>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).on("ready", function () {
+            $('#login-page').css({'height': window.innerHeight + 'px'})
+        });
+    </script>
+</h:body>
+</html>

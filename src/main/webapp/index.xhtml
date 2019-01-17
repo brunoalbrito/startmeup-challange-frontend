@@ -48,11 +48,12 @@
                                             <a class='pink-text' href='#'><b>Forgot Password?</b></a>
                                         </label>
                                         <div class="col s12 input-field">
-                                            <h:commandButton value="Login" action="#"
+                                            <h:commandButton value="Login" action="#{usuarioBean.logar}"
                                                              styleClass="s12 btn btn-large"></h:commandButton>
                                         </div>
                                     </div>
-                                    <h:commandButton style="padding: 0;border: none;background: none;color: #039be5" type="button" value="Criar conta" onclick="PF('sidebar5').show()"/>
+                                    <h:commandButton style="padding: 0;border: none;background: none;color: #039be5"
+                                                     type="button" value="Criar conta" onclick="PF('sidebar5').show()"/>
                                 </h:form>
                             </div>
                         </div>
@@ -65,17 +66,20 @@
                                 <div class="row">
                                     <div class="col s12 input-field">
                                         <h:inputText id="nomeCad" required="true"
-                                                     requiredMessage="Nome do usuario é requerido" value="#{usuarioBean.nome}"></h:inputText>
+                                                     requiredMessage="Nome do usuario é requerido"
+                                                     value="#{usuarioBean.nome}"></h:inputText>
                                         <h:outputLabel for="nomeCad" value="Nome"></h:outputLabel>
                                     </div>
                                     <div class="col s12 input-field">
                                         <h:inputText id="emailCad" required="true"
-                                                     requiredMessage="Email do usuario é requerido" value="#{usuarioBean.email}"></h:inputText>
+                                                     requiredMessage="Email do usuario é requerido"
+                                                     value="#{usuarioBean.email}"></h:inputText>
                                         <h:outputLabel for="emailCad" value="Email"></h:outputLabel>
                                     </div>
                                     <div class="col s12 input-field">
                                         <h:inputText id="senhaCad" required="true"
-                                                     requiredMessage="Senha do usuario é requerido" value="#{usuarioBean.senha}"></h:inputText>
+                                                     requiredMessage="Senha do usuario é requerido"
+                                                     value="#{usuarioBean.senha}"></h:inputText>
                                         <h:outputLabel for="senhaCad" value="Senha"></h:outputLabel>
                                     </div>
                                     <div class="col s12 input-field">

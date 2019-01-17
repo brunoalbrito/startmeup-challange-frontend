@@ -6,6 +6,8 @@ import com.br.startmeup.model.Usuario;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
 
 @ManagedBean
 @SessionScoped
@@ -53,5 +55,13 @@ public class UsuarioBean {
         usuario.setEmail(getEmail());
         usuario.setSenha(getSenha());
         business.persistUsuario(usuario);
+    }
+
+    public void logar(){
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("agenda.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

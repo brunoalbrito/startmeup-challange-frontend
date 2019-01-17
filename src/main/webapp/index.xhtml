@@ -36,12 +36,12 @@
                                     <p:growl autoUpdate="true"/>
                                     <div class="row">
                                         <div class="col s12 input-field">
-                                            <h:inputText id="email"
+                                            <h:inputText id="email" value="#{usuarioBean.email}"
                                                          requiredMessage="Email do usuario é requerido"></h:inputText>
                                             <h:outputLabel for="email" value="Email"></h:outputLabel>
                                         </div>
                                         <div class="col s12 input-field">
-                                            <h:inputText id="password"></h:inputText>
+                                            <h:inputText id="password" value="#{usuarioBean.senha}"></h:inputText>
                                             <h:outputLabel for="password" value="Senha"></h:outputLabel>
                                         </div>
                                         <label style='float: right;'>

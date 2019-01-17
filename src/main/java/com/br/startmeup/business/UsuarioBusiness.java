@@ -8,9 +8,9 @@ public class UsuarioBusiness {
 
     private UsuarioDAO usuarioDAO;
 
-//    public UsuarioBusiness(){
-//        this.usuarioDAO = new UsuarioDAO(SingletonConnection.getInstance().getConnection());
-//    }
+    public UsuarioBusiness(){
+        this.usuarioDAO = new UsuarioDAO(SingletonConnection.getInstance().getConnection());
+    }
 
     public boolean persistUsuario(Usuario usuario){
 
@@ -19,6 +19,16 @@ public class UsuarioBusiness {
             return true;
         }
 
+        return false;
+    }
+
+    public boolean loginUsuario(Usuario usuario){
+
+        usuario = usuarioDAO.findByEmail(usuario.getEmail());
+
+        if(usuario != null){
+            return true;
+        }
         return false;
     }
 }

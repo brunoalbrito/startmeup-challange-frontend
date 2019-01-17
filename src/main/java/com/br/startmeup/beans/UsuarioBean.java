@@ -54,14 +54,25 @@ public class UsuarioBean {
         usuario.setNome(getNome());
         usuario.setEmail(getEmail());
         usuario.setSenha(getSenha());
-        business.persistUsuario(usuario);
+        if(business.persistUsuario(usuario)) {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("agenda.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void logar(){
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("agenda.xhtml");
-        } catch (IOException e) {
-            e.printStackTrace();
+        Usuario usuario = new Usuario();
+        usuario.setEmail(getEmail());
+        usuario.setSenha(getSenha());
+        if(business.loginUsuario(usuario)){
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("agenda.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

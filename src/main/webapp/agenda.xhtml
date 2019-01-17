@@ -9,6 +9,7 @@
 <h:head>
     <title>StartMeUp - ChallangeCalendar</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"/>
     <script type="javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script type="javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script type="javascript"
@@ -56,6 +57,18 @@
 </style>
 
 <h:body styleClass="cyan light-5">
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Logo</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li>
+                    <h:form >
+                             <h:commandLink styleClass="fas fa-sign-out-alt"></h:commandLink>
+                    </h:form>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <div class="container">
         <div class="center-align">
             <div class="row">
@@ -66,7 +79,6 @@
                                 <p:growl id="messages" showDetail="true"/>
 
                                 <h:panelGrid columnClasses="value">
-                                    <h3 style="margin-top: 0">Editable Schedule</h3>
                                     <p:schedule id="schedule" value="#{scheduleView.eventModel}" widgetVar="myschedule"
                                                 timeZone="GMT+2">
 

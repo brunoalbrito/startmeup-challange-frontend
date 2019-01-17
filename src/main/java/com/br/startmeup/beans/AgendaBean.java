@@ -1,5 +1,7 @@
 package com.br.startmeup.beans;
 
+import com.br.startmeup.business.EventoBusiness;
+import com.br.startmeup.model.Evento;
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
@@ -14,15 +16,17 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-@ManagedBean
+@ManagedBean(name = "scheduleView")
 @ViewScoped
-public class ScheduleView implements Serializable {
+public class AgendaBean implements Serializable {
 
     private ScheduleModel eventModel;
 
     private ScheduleModel lazyEventModel;
 
     private ScheduleEvent event = new DefaultScheduleEvent();
+
+    private EventoBusiness business;
 
     @PostConstruct
     public void init() {
@@ -154,10 +158,19 @@ public class ScheduleView implements Serializable {
     }
 
     public void addEvent() {
-        if(event.getId() == null)
+        if(event.getId() == null){
+            Evento evento = new Evento();
+            evento.setTitulo(event.getTitle());
+            evento.setDataInicio(event.getStartDate());
+            evento.setDataFim(event.getEndDate());
+            evento.setFkUsuario(2);
+            business = new EventoBusiness();
+            business.createEvento(evento);
             eventModel.addEvent(event);
-        else
+        }else{
             eventModel.updateEvent(event);
+        }
+
 
         event = new DefaultScheduleEvent();
     }

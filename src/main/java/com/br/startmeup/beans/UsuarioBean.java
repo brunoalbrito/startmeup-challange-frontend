@@ -79,4 +79,13 @@ public class UsuarioBean {
             }
         }
     }
+
+    public void logout(){
+        SessionContext.getInstance().encerrarSessao();
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

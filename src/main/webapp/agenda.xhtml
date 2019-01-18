@@ -63,7 +63,7 @@
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li>
                     <h:form >
-                             <h:commandLink styleClass="fas fa-sign-out-alt"></h:commandLink>
+                             <h:commandLink styleClass="fas fa-sign-out-alt" action="#{usuarioBean.logout}"></h:commandLink>
                     </h:form>
                 </li>
             </ul>
@@ -111,7 +111,7 @@
                                                     pattern="dd/MM/yyyy HH:mm" locale="pt" />
 
                                         <p:outputLabel for="allDay" value="All Day:"/>
-                                        <h:selectBooleanCheckbox id="allDay" value="#{scheduleView.event.allDay}"/>
+                                        <p:selectBooleanCheckbox id="allDay" value="#{scheduleView.event.allDay}"/>
 
                                         <p:commandButton type="reset" value="Reset"/>
                                         <p:commandButton id="addButton" value="Save" action="#{scheduleView.addEvent}"

@@ -22,13 +22,10 @@ public class UsuarioBusiness {
         return false;
     }
 
-    public boolean loginUsuario(Usuario usuario){
+    public Usuario loginUsuario(Usuario usuario){
 
         usuario = usuarioDAO.findByEmail(usuario.getEmail());
 
-        if(usuario != null){
-            return true;
-        }
-        return false;
+        return usuario;
     }
 }

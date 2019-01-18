@@ -1,7 +1,9 @@
 package com.br.startmeup.beans;
 
 import com.br.startmeup.business.EventoBusiness;
+import com.br.startmeup.helper.SessionContext;
 import com.br.startmeup.model.Evento;
+import com.br.startmeup.model.Usuario;
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
@@ -15,6 +17,7 @@ import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @ManagedBean(name = "scheduleView")
 @ViewScoped
@@ -30,11 +33,14 @@ public class AgendaBean implements Serializable {
 
     @PostConstruct
     public void init() {
+        Usuario usuario = (Usuario)SessionContext.getInstance().getAttribute("UsuarioLogado");
+        business = new EventoBusiness();
+        List<Evento> eventos = business.getEventoByUsuario(usuario.getId());
         eventModel = new DefaultScheduleModel();
-        eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
-        eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
-        eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am()));
-        eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm()));
+
+        for (Evento e:eventos) {
+            eventModel.addEvent(new DefaultScheduleEvent(e.getTitulo(), e.getDataInicio(), e.getDataFim()));
+        }
 
         lazyEventModel = new LazyScheduleModel() {
 
@@ -159,11 +165,12 @@ public class AgendaBean implements Serializable {
 
     public void addEvent() {
         if(event.getId() == null){
+            Usuario usuario = (Usuario)SessionContext.getInstance().getAttribute("UsuarioLogado");
             Evento evento = new Evento();
             evento.setTitulo(event.getTitle());
             evento.setDataInicio(event.getStartDate());
             evento.setDataFim(event.getEndDate());
-            evento.setFkUsuario(2);
+            evento.setFkUsuario(usuario.getId());
             business = new EventoBusiness();
             business.createEvento(evento);
             eventModel.addEvent(event);

@@ -2,14 +2,21 @@ package com.br.startmeup.persistence.dao;
 
 import com.br.startmeup.helper.DateHandler;
 import com.br.startmeup.interfaces.GenericDAO;
+import com.br.startmeup.interfaces.IEventoDAO;
 import com.br.startmeup.model.Evento;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
-public class EventoDAO implements GenericDAO<Evento> {
+public class EventoDAO implements IEventoDAO<Evento> {
 
     private String url = "http://localhost:8090/agendawebapi_war/api/eventos";
 
@@ -64,5 +71,45 @@ public class EventoDAO implements GenericDAO<Evento> {
     @Override
     public boolean delete(Evento evento) {
         return false;
+    }
+
+    @Override
+    public List<Evento> findByUserId(long id) {
+        List<Evento> eventos = new ArrayList<>();
+
+        String parameter = "?idUsuario="+ id;
+
+        try {
+            URL url = new URL(this.url + parameter);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setDoOutput(true);
+            connection.setRequestProperty("User-Agent", "Java client");
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            try {
+                int responseCode = connection.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    BufferedReader in = new BufferedReader(new InputStreamReader(
+                            connection.getInputStream()));
+                    String inputLine;
+                    StringBuffer response = new StringBuffer();
+
+                    Type type = new TypeToken<List<Evento>>() {
+                    }.getType();
+
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                        eventos = new Gson().fromJson(inputLine,type);
+                    }
+                    in.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return eventos;
     }
 }

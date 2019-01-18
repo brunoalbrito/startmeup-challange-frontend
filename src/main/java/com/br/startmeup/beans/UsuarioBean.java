@@ -2,11 +2,12 @@ package com.br.startmeup.beans;
 
 
 import com.br.startmeup.business.UsuarioBusiness;
+import com.br.startmeup.helper.SessionContext;
 import com.br.startmeup.model.Usuario;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.bean.SessionScoped;
 import java.io.IOException;
 
 @ManagedBean
@@ -56,6 +57,7 @@ public class UsuarioBean {
         usuario.setSenha(getSenha());
         if(business.persistUsuario(usuario)) {
             try {
+                SessionContext.getInstance().setAttribute("UsuarioLogado", usuario);
                 FacesContext.getCurrentInstance().getExternalContext().redirect("agenda.xhtml");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -67,8 +69,10 @@ public class UsuarioBean {
         Usuario usuario = new Usuario();
         usuario.setEmail(getEmail());
         usuario.setSenha(getSenha());
-        if(business.loginUsuario(usuario)){
+        usuario = business.loginUsuario(usuario);
+        if(usuario != null){
             try {
+                SessionContext.getInstance().setAttribute("UsuarioLogado", usuario);
                 FacesContext.getCurrentInstance().getExternalContext().redirect("agenda.xhtml");
             } catch (IOException e) {
                 e.printStackTrace();

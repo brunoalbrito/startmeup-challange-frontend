@@ -5,7 +5,7 @@
         xmlns:h="http://xmlns.jcp.org/jsf/html"
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:p="http://primefaces.org/ui">
-
+<link rel="stylesheet" type="text/css" href="css/style.css"></link>
 <h:head>
     <title>StartMeUp - Challange</title>
 
@@ -41,7 +41,7 @@
                                             <h:outputLabel for="email" value="Email"></h:outputLabel>
                                         </div>
                                         <div class="col s12 input-field">
-                                            <h:inputText id="password" value="#{usuarioBean.senha}"></h:inputText>
+                                            <h:inputSecret id="password" value="#{usuarioBean.senha}"></h:inputSecret>
                                             <h:outputLabel for="password" value="Senha"></h:outputLabel>
                                         </div>
                                         <label style='float: right;'>

@@ -5,6 +5,7 @@ import com.br.startmeup.business.UsuarioBusiness;
 import com.br.startmeup.helper.SessionContext;
 import com.br.startmeup.model.Usuario;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.bean.SessionScoped;

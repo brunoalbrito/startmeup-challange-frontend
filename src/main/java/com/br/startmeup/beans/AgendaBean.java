@@ -33,6 +33,7 @@ public class AgendaBean implements Serializable {
 
     @PostConstruct
     public void init() {
+        SessionContext.getInstance().setAttribute("AgendaAtiva", true);
         Usuario usuario = (Usuario)SessionContext.getInstance().getAttribute("UsuarioLogado");
         business = new EventoBusiness();
         List<Evento> eventos = business.getEventoByUsuario(usuario.getId());

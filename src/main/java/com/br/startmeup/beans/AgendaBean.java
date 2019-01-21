@@ -1,6 +1,7 @@
 package com.br.startmeup.beans;
 
 import com.br.startmeup.business.EventoBusiness;
+import com.br.startmeup.business.UsuarioBusiness;
 import com.br.startmeup.helper.SessionContext;
 import com.br.startmeup.model.Evento;
 import com.br.startmeup.model.Usuario;
@@ -29,14 +30,20 @@ public class AgendaBean implements Serializable {
 
     private ScheduleEvent event = new DefaultScheduleEvent();
 
-    private EventoBusiness business;
+    private EventoBusiness eventoBusiness;
+
+    private UsuarioBusiness usuarioBusiness;
+
+    private Usuario usuario;
 
     @PostConstruct
     public void init() {
         SessionContext.getInstance().setAttribute("AgendaAtiva", true);
-        Usuario usuario = (Usuario)SessionContext.getInstance().getAttribute("UsuarioLogado");
-        business = new EventoBusiness();
-        List<Evento> eventos = business.getEventoByUsuario(usuario.getId());
+        usuario = (Usuario)SessionContext.getInstance().getAttribute("UsuarioLogado");
+        usuarioBusiness = new UsuarioBusiness();
+        usuario = usuarioBusiness.loginUsuario(usuario);
+        eventoBusiness = new EventoBusiness();
+        List<Evento> eventos = eventoBusiness.getEventoByUsuario(usuario.getId());
         eventModel = new DefaultScheduleModel();
 
         for (Evento e:eventos) {
@@ -166,14 +173,13 @@ public class AgendaBean implements Serializable {
 
     public void addEvent() {
         if(event.getId() == null){
-            Usuario usuario = (Usuario)SessionContext.getInstance().getAttribute("UsuarioLogado");
             Evento evento = new Evento();
             evento.setTitulo(event.getTitle());
             evento.setDataInicio(event.getStartDate());
             evento.setDataFim(event.getEndDate());
             evento.setFkUsuario(usuario.getId());
-            business = new EventoBusiness();
-            business.createEvento(evento);
+            eventoBusiness = new EventoBusiness();
+            eventoBusiness.createEvento(evento);
             eventModel.addEvent(event);
         }else{
             eventModel.updateEvent(event);

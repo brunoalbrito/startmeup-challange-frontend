@@ -170,9 +170,10 @@ public class UsuarioDAO implements IUsuarioDAO<Usuario> {
 
                     while ((inputLine = in.readLine()) != null) {
                         response.append(inputLine);
-                        usuario = (Usuario) new Gson().fromJson(inputLine,Usuario.class);
+                        usuario = new Gson().fromJson(inputLine,Usuario.class);
                     }
                     in.close();
+                    connection.disconnect();
                 }
             } catch (Exception e) {
                 e.printStackTrace();

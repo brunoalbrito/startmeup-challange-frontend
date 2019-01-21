@@ -1,6 +1,5 @@
 package com.br.startmeup.business;
 
-import com.br.startmeup.interfaces.GenericDAO;
 import com.br.startmeup.interfaces.IEventoDAO;
 import com.br.startmeup.model.Evento;
 import com.br.startmeup.persistence.dao.EventoDAO;

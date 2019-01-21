@@ -24,8 +24,12 @@ public class UsuarioBusiness {
 
     public Usuario loginUsuario(Usuario usuario){
 
+        String password = usuario.getSenha();
         usuario = usuarioDAO.findByEmail(usuario.getEmail());
 
-        return usuario;
+        if(usuario.getSenha() != null && usuario.getSenha().equals(password)){
+            return usuario;
+        }
+        return null;
     }
 }

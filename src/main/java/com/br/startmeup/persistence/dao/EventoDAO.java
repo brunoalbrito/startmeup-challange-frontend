@@ -1,7 +1,6 @@
 package com.br.startmeup.persistence.dao;
 
 import com.br.startmeup.helper.DateHandler;
-import com.br.startmeup.interfaces.GenericDAO;
 import com.br.startmeup.interfaces.IEventoDAO;
 import com.br.startmeup.model.Evento;
 import com.google.gson.Gson;
@@ -101,6 +100,7 @@ public class EventoDAO implements IEventoDAO<Evento> {
                         response.append(inputLine);
                         eventos = new Gson().fromJson(inputLine,type);
                     }
+                    connection.disconnect();
                     in.close();
                 }
             } catch (Exception e) {

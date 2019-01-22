@@ -28,7 +28,7 @@ public class TarefaBean {
 
     private Date dataInicio;
 
-    private Date dataFim;
+    private Date dataFinal;
 
     private StatusEvento statusEvento = StatusEvento.INICIADA;
 
@@ -38,12 +38,14 @@ public class TarefaBean {
 
     private TarefaBusiness tarefaBusiness;
 
+    private Usuario usuario;
+
     @PostConstruct
     public void init() {
         tarefaBusiness = new TarefaBusiness();
         tarefasSource = new ArrayList<>();
         tarefasTarget = new ArrayList<>();
-        Usuario usuario = (Usuario) SessionContext
+        usuario = (Usuario) SessionContext
                 .getInstance()
                 .getAttribute("UsuarioLogado");
         List<Tarefa> tarefasUser = tarefaBusiness.buscarTarefas(usuario);
@@ -78,12 +80,12 @@ public class TarefaBean {
         this.dataInicio = dataInicio;
     }
 
-    public Date getDataFim() {
-        return dataFim;
+    public Date getDataFinal() {
+        return dataFinal;
     }
 
-    public void setDataFim(Date dataFim) {
-        this.dataFim = dataFim;
+    public void setDataFinal(Date dataFim) {
+        this.dataFinal = dataFim;
     }
 
     public StatusEvento getStatusEvento() {
@@ -123,10 +125,12 @@ public class TarefaBean {
         Tarefa tarefa = new Tarefa();
         tarefa.setNome(nome);
         tarefa.setDataInicio(dataInicio);
-        tarefa.setDataFim(dataFim);
+        tarefa.setDataFim(dataFinal);
         tarefa.setPrioridade(prioridade);
         tarefa.setStatusEvento(statusEvento);
+        tarefa.setIdUsuario((int)usuario.getId());
         tarefasSource.add(tarefa.formattedTarefa());
+        tarefaBusiness.criarTarefa(tarefa);
         setTarefas(tarefasSource, tarefasTarget);
     }
 

@@ -1,5 +1,6 @@
 package com.br.startmeup.persistence.dao;
 
+import com.br.startmeup.helper.DateHandler;
 import com.br.startmeup.interfaces.ITarefaDAO;
 import com.br.startmeup.model.Tarefa;
 import com.google.gson.Gson;
@@ -20,6 +21,34 @@ public class TarefaDAO implements ITarefaDAO<Tarefa> {
 
     @Override
     public boolean create(Tarefa tarefa) {
+        try {
+            String urlParamters = "nome=" + tarefa.getNome().trim()
+                    + "&dataInicio=" + DateHandler.parseDateToString(tarefa.getDataInicio())
+                    + "&dataFim=" + DateHandler.parseDateToString(tarefa.getDataFim())
+                    + "&statusTarefa=" + tarefa.getStatusEvento()
+                    + "&prioridade=" + tarefa.getPrioridade()
+                    + "&idUsuario=" + tarefa.getIdUsuario();
+
+            URL url = new URL(this.url);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setDoOutput(true);
+            connection.setRequestProperty("User-Agent", "Java client");
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+            try {
+                connection.getOutputStream().write(urlParamters.getBytes());
+                int responseCode = connection.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK)
+                    connection.disconnect();
+                return true;
+            } catch (Exception e) {
+
+            }
+            connection.connect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
@@ -47,7 +76,7 @@ public class TarefaDAO implements ITarefaDAO<Tarefa> {
     public List<Tarefa> findByUserId(long id) {
         List<Tarefa> eventos = new ArrayList<>();
 
-        String parameter = "?idUsuario="+ id;
+        String parameter = "?idUsuario=" + id;
 
         try {
             URL url = new URL(this.url + parameter);
@@ -69,7 +98,7 @@ public class TarefaDAO implements ITarefaDAO<Tarefa> {
 
                     while ((inputLine = in.readLine()) != null) {
                         response.append(inputLine);
-                        eventos = new Gson().fromJson(inputLine,type);
+                        eventos = new Gson().fromJson(inputLine, type);
                     }
                     connection.disconnect();
                     in.close();

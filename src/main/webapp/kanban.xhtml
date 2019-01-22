@@ -80,16 +80,20 @@
             <div class="row">
                 <div class="col 8 offset-s3 center-align">
                     <div class="col s8 input-field">
-                        <p:inputText id="nome" value="#{tarefaBean.nome}" placeholder="Nome tarefa"></p:inputText>
+                        <p:inputText id="nome" value="#{tarefaBean.nome}" placeholder="Nome tarefa"
+                                     required="true"></p:inputText>
                     </div>
                     <div class="col s8 input-field">
-                        <p:calendar id="dataInicio" value="#{tarefaBean.dataInicio}" placeholder="Data Inicio"/>
+                        <p:calendar id="dataInicio" value="#{tarefaBean.dataInicio}" placeholder="Data Inicio"
+                                    required="true"/>
                     </div>
                     <div class="col s8 input-field">
-                        <p:calendar id="dataFim" value="#{tarefaBean.dataFim}" placeholder="Data Fim"/>
+                        <p:calendar id="dataFim" value="#{tarefaBean.dataFinal}" placeholder="Data Fim"
+                                    required="true"/>
                     </div>
                     <div class="col s8 input-field">
-                        <p:selectOneMenu id="console" value="#{tarefaBean.prioridade}" style="width:125px">
+                        <p:selectOneMenu id="console" value="#{tarefaBean.prioridade}" style="width:125px"
+                                         required="true">
                             <f:selectItem itemValue="1" itemLabel="1"/>
                             <f:selectItem itemValue="2" itemLabel="2"/>
                             <f:selectItem itemValue="3" itemLabel="3"/>
@@ -103,25 +107,28 @@
                         </p:selectOneMenu>
                     </div>
                     <div class="col s8 input-field">
-                        <p:inputText id="status" value="#{tarefaBean.statusEvento}" readonly="true"/>
+                        <p:inputText id="status" value="#{tarefaBean.statusEvento}" readonly="true" required="true"/>
                     </div>
 
                     <div class="col s8 input-field">
                         <h:commandButton value="Salvar" action="#{tarefaBean.criarTarefa}"
                                          styleClass="s12 btn btn-large purple darken-4"></h:commandButton>
                     </div>
+                    <h:inputHidden value="${tarefaBean.tarefas}"/>
                 </div>
             </div>
         </h:form>
     </p:dialog>
-    <p:dialog widgetVar="sidebar5" modal="true" showEffect="explode" dynamic="true" hideEffect="bounce">
+    <p:dialog header="Editar evento" widgetVar="sidebar5" showEffect="explode" dynamic="true" hideEffect="bounce">
         <h:form>
             <p:growl autoUpdate="true"/>
             <div class="row">
-                <div class="col s5 offset-s4  center-align">
-                    <div class="col s12 input-field">
-                        <p:inputText id="idTarefa" value="#{tarefaBean.nome}" placeholder="Id tarefa"></p:inputText>
+                <div class="col s5 offset-s4 center-align">
+                    <div class="col s10 input-field">
+                        <p:inputText id="nomeEditar" value="#{tarefaBean.nome}" placeholder="Nome tarefa"
+                                     required="true"></p:inputText>
                     </div>
+
                     <div class="col s5 offset-s1 input-field">
                         <h:commandButton value="Buscar" action="#{tarefaBean.buscarTarefa}"
                                          oncomplete="PF('sidebar5').show();"
@@ -131,14 +138,18 @@
                         <h:commandButton value="Excluir" action="#{tarefaBean.excluirTarefa}"
                                          styleClass="s12 btn btn-large purple darken-4"></h:commandButton>
                     </div>
-                    <div class="col s12 input-field">
-                        <p:calendar id="dataInicioEvento" value="#{tarefaBean.dataInicio}" placeholder="Data Inicio"/>
+
+                    <div class="col s10 input-field">
+                        <p:calendar id="dataInicioEditar" value="#{tarefaBean.dataInicio}" placeholder="Data Inicio"
+                                    required="true"/>
                     </div>
-                    <div class="col s12 input-field">
-                        <p:calendar id="dataFimEvento" value="#{tarefaBean.dataFim}" placeholder="Data Fim"/>
+                    <div class="col s10 input-field">
+                        <p:calendar id="dataFimEditar" value="#{tarefaBean.dataFinal}" placeholder="Data Fim"
+                                    required="true"/>
                     </div>
-                    <div class="col s12 input-field">
-                        <p:selectOneMenu id="consoleEvento" value="#{tarefaBean.prioridade}" style="width:125px">
+                    <div class="col s10 input-field">
+                        <p:selectOneMenu id="consoleEditar" value="#{tarefaBean.prioridade}" style="width:125px"
+                                         required="true">
                             <f:selectItem itemValue="1" itemLabel="1"/>
                             <f:selectItem itemValue="2" itemLabel="2"/>
                             <f:selectItem itemValue="3" itemLabel="3"/>
@@ -151,17 +162,24 @@
                             <f:selectItem itemValue="10" itemLabel="10"/>
                         </p:selectOneMenu>
                     </div>
-                    <div class="col s12 input-field">
-                        <p:inputText id="statusEvento" value="#{tarefaBean.statusEvento}" readonly="true"/>
+                    <div class="col s10 input-field">
+                        <p:selectOneMenu id="prioridadeEditar" value="#{tarefaBean.prioridade}" style="width:125px"
+                                         required="true">
+                            <f:selectItem itemValue="INICIADA" itemLabel="Inicidada"/>
+                            <f:selectItem itemValue="EMPROGRESSO" itemLabel="Em progresso"/>
+                            <f:selectItem itemValue="CONCLUIDA" itemLabel="Concluida"/>
+                        </p:selectOneMenu>
                     </div>
-                    <div class="col s12 input-field">
-                        <h:commandButton value="Salvar" action="#{tarefaBean.buscarTarefa}"
-                                         oncomplete="sidebar5.show();"
+
+                    <div class="col s10 input-field">
+                        <h:commandButton value="Salvar" action="#{tarefaBean.criarTarefa}"
                                          styleClass="s12 btn btn-large purple darken-4"></h:commandButton>
                     </div>
+                    <h:inputHidden value="${tarefaBean.tarefas}"/>
                 </div>
             </div>
         </h:form>
     </p:dialog>
+
 </h:body>
 </html>

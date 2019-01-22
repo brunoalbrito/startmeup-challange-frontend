@@ -19,4 +19,8 @@ public class TarefaBusiness {
     public List<Tarefa> buscarTarefas(Usuario usuario) {
             return tarefaDAO.findByUserId(usuario.getId());
     }
+
+    public void criarTarefa(Tarefa tarefa) {
+            tarefaDAO.create(tarefa);
+    }
 }

@@ -59,7 +59,7 @@ public class UsuarioBean {
         if(business.persistUsuario(usuario)) {
             try {
                 SessionContext.getInstance().setAttribute("UsuarioLogado", usuario);
-                FacesContext.getCurrentInstance().getExternalContext().redirect("agenda.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("kanban.xhtml");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -74,7 +74,7 @@ public class UsuarioBean {
         if(usuario != null){
             try {
                 SessionContext.getInstance().setAttribute("UsuarioLogado", usuario);
-                FacesContext.getCurrentInstance().getExternalContext().redirect("agenda.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("kanban.xhtml");
             } catch (IOException e) {
                 e.printStackTrace();
             }

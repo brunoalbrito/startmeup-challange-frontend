@@ -9,22 +9,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class UsuarioDAO implements IUsuarioDAO<Usuario> {
 
-    private Connection connection;
 
     private String url = "http://localhost:8090/agendawebapi_war/api/usuarios";
 
-    public UsuarioDAO(Connection connection) {
-        this.connection = connection;
-    }
 
     @Override
     public boolean create(Usuario usuario) {

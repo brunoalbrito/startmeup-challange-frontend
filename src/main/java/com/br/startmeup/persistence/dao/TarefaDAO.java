@@ -98,6 +98,35 @@ public class TarefaDAO implements ITarefaDAO<Tarefa> {
 
     @Override
     public boolean update(Tarefa tarefa) {
+        try {
+            String urlParamters = "id=" + tarefa.getId()
+                    + "&nome=" + tarefa.getNome().trim()
+                    + "&dataInicio=" + DateHandler.parseDateToString(tarefa.getDataInicio())
+                    + "&dataFim=" + DateHandler.parseDateToString(tarefa.getDataFim())
+                    + "&statusTarefa=" + tarefa.getStatusEvento()
+                    + "&prioridade=" + tarefa.getPrioridade()
+                    + "&idUsuario=" + tarefa.getIdUsuario();
+
+            URL url = new URL(this.url);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("PUT");
+            connection.setDoOutput(true);
+            connection.setRequestProperty("User-Agent", "Java client");
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+            try {
+                connection.getOutputStream().write(urlParamters.getBytes());
+                int responseCode = connection.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK)
+                    connection.disconnect();
+                return true;
+            } catch (Exception e) {
+
+            }
+            connection.connect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 

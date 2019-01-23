@@ -42,18 +42,7 @@ public class TarefaBean {
 
     @PostConstruct
     public void init() {
-        tarefaBusiness = new TarefaBusiness();
-        tarefasSource = new ArrayList<>();
-        tarefasTarget = new ArrayList<>();
-        usuario = (Usuario) SessionContext
-                .getInstance()
-                .getAttribute("UsuarioLogado");
-        List<Tarefa> tarefasUser = tarefaBusiness.buscarTarefas(usuario);
-        for (Tarefa tarefa:
-                tarefasUser) {
-            tarefasSource.add(tarefa.formattedTarefa());
-        }
-        tarefas = new DualListModel<String>(tarefasSource, tarefasTarget);
+        atualizaLista();
     }
 
     public String getId() {
@@ -132,6 +121,7 @@ public class TarefaBean {
         tarefasSource.add(tarefa.formattedTarefa());
         tarefaBusiness.criarTarefa(tarefa);
         setTarefas(tarefasSource, tarefasTarget);
+        atualizaLista();
     }
 
     public void buscarTarefa(){
@@ -148,6 +138,8 @@ public class TarefaBean {
         Tarefa tarefa = new Tarefa();
         tarefa.setId(Long.parseLong(id));
         tarefaBusiness.removerTarefa(tarefa);
+        atualizaLista();
+        limpaCampos();
     }
 
     public void atulizarTarefa(){
@@ -159,6 +151,9 @@ public class TarefaBean {
         tarefa.setPrioridade(prioridade);
         tarefa.setStatusEvento(statusEvento);
         tarefa.setIdUsuario((int)usuario.getId());
+        tarefaBusiness.atulizaTarefa(tarefa);
+        atualizaLista();
+        limpaCampos();
     }
 
     private void limpaCampos(){
@@ -168,5 +163,24 @@ public class TarefaBean {
         dataFinal = null;
         prioridade = 0;
         statusEvento = StatusEvento.valueOf("INICIADA");
+    }
+
+    private void atualizaLista(){
+        tarefaBusiness = new TarefaBusiness();
+        tarefasSource = new ArrayList<>();
+        tarefasTarget = new ArrayList<>();
+        usuario = (Usuario) SessionContext
+                .getInstance()
+                .getAttribute("UsuarioLogado");
+        List<Tarefa> tarefasUser = tarefaBusiness.buscarTarefas(usuario);
+        for (Tarefa tarefa:
+                tarefasUser) {
+            if(tarefa.getStatusEvento() == StatusEvento.CONCLUIDA){
+                tarefasTarget.add(tarefa.formattedTarefa());
+            }else{
+                tarefasSource.add(tarefa.formattedTarefa());
+            }
+        }
+        tarefas = new DualListModel<String>(tarefasSource, tarefasTarget);
     }
 }

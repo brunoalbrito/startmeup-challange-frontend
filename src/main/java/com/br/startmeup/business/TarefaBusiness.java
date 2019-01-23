@@ -31,4 +31,8 @@ public class TarefaBusiness {
     public void removerTarefa(Tarefa tarefa) {
         tarefaDAO.delete(tarefa);
     }
+
+    public void atulizaTarefa(Tarefa tarefa) {
+        tarefaDAO.update(tarefa);
+    }
 }

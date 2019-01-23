@@ -9,7 +9,7 @@ public class UsuarioBusiness {
     private UsuarioDAO usuarioDAO;
 
     public UsuarioBusiness(){
-        this.usuarioDAO = new UsuarioDAO();
+        this.usuarioDAO = new UsuarioDAO(SingletonConnection.getInstance().getConnection());
     }
 
     public boolean persistUsuario(Usuario usuario){

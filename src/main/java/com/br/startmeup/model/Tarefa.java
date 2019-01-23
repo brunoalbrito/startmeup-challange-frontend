@@ -5,7 +5,7 @@ import com.br.startmeup.helper.DateHandler;
 
 import java.util.Date;
 
-public class Tarefa {
+public class Tarefa implements Comparable<Tarefa>{
 
     private long id;
 
@@ -101,5 +101,16 @@ public class Tarefa {
                 ", idUsuario=" + idUsuario +
                 ", prioridade=" + prioridade +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Tarefa outraTarefa) {
+        if (this.prioridade < outraTarefa.getPrioridade()) {
+            return 1;
+        }
+        if (this.prioridade > outraTarefa.getPrioridade()) {
+            return -1;
+        }
+        return 0;
     }
 }

@@ -2,15 +2,18 @@ package com.br.startmeup.beans;
 
 import com.br.startmeup.business.TarefaBusiness;
 import com.br.startmeup.enums.StatusEvento;
+import com.br.startmeup.helper.CustomComparator;
 import com.br.startmeup.helper.SessionContext;
 import com.br.startmeup.model.Tarefa;
 import com.br.startmeup.model.Usuario;
+import com.mysql.cj.xdevapi.Collection;
 import org.primefaces.model.DualListModel;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -122,6 +125,7 @@ public class TarefaBean {
         tarefaBusiness.criarTarefa(tarefa);
         setTarefas(tarefasSource, tarefasTarget);
         atualizaLista();
+        limpaCampos();
     }
 
     public void buscarTarefa(){
@@ -173,6 +177,8 @@ public class TarefaBean {
                 .getInstance()
                 .getAttribute("UsuarioLogado");
         List<Tarefa> tarefasUser = tarefaBusiness.buscarTarefas(usuario);
+        CustomComparator comparator = new CustomComparator();
+        Collections.sort(tarefasUser,comparator);
         for (Tarefa tarefa:
                 tarefasUser) {
             if(tarefa.getStatusEvento() == StatusEvento.CONCLUIDA){

@@ -150,12 +150,23 @@ public class TarefaBean {
         tarefaBusiness.removerTarefa(tarefa);
     }
 
+    public void atulizarTarefa(){
+        Tarefa tarefa = new Tarefa();
+        tarefa.setId(Long.parseLong(id));
+        tarefa.setNome(nome);
+        tarefa.setDataInicio(dataInicio);
+        tarefa.setDataFim(dataFinal);
+        tarefa.setPrioridade(prioridade);
+        tarefa.setStatusEvento(statusEvento);
+        tarefa.setIdUsuario((int)usuario.getId());
+    }
+
     private void limpaCampos(){
         id = null;
         nome = null;
         dataInicio = null;
         dataFinal = null;
         prioridade = 0;
-        statusEvento = StatusEvento.valueOf("Iniciado");
+        statusEvento = StatusEvento.valueOf("INICIADA");
     }
 }

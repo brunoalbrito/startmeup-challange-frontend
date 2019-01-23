@@ -157,15 +157,15 @@
                             </p:selectOneMenu>
                         </div>
                         <div class="col s10 input-field">
-                            <p:selectOneMenu id="prioridadeEditar" value="#{tarefaBean.prioridade}" style="width:125px">
-                                <f:selectItem itemValue="1" itemLabel="Inicidada" />
-                                <f:selectItem itemValue="2" itemLabel="Em progresso" />
-                                <f:selectItem itemValue="3" itemLabel="Concluida" />
+                            <p:selectOneMenu id="prioridadeEditar" value="#{tarefaBean.statusEvento}" style="width:125px">
+                                <f:selectItem itemValue="INICIADA" itemLabel="Inicidada" />
+                                <f:selectItem itemValue="EMPROGRESSO" itemLabel="Em progresso" />
+                                <f:selectItem itemValue="CONCLUIDA" itemLabel="Concluida" />
                             </p:selectOneMenu>
                         </div>
 
                         <div class="col s10 input-field">
-                            <h:commandButton value="Salvar" action="#{tarefaBean.criarTarefa}" styleClass="s12 btn btn-large purple darken-4"/>
+                            <h:commandButton value="Salvar" action="#{tarefaBean.atulizarTarefa}" styleClass="s12 btn btn-large purple darken-4"/>
                         </div>
                     </div>
                 </div>

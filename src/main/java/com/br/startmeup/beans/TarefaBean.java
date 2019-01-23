@@ -139,6 +139,6 @@ public class TarefaBean {
     }
 
     public void excluirTarefa(){
-
+        System.out.println("Caiu aqui");
     }
 }

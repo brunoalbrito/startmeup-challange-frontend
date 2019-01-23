@@ -103,6 +103,29 @@ public class TarefaDAO implements ITarefaDAO<Tarefa> {
 
     @Override
     public boolean delete(Tarefa tarefa) {
+
+        String urlParamters = "id=" + tarefa.getId();
+
+        try {
+            URL url = new URL(this.url);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("DELETE");
+            connection.setDoOutput(true);
+            connection.setRequestProperty("User-Agent", "Java client");
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            connection.getOutputStream().write(urlParamters.getBytes());
+            try {
+                int responseCode = connection.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    connection.disconnect();
+                    return true;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 

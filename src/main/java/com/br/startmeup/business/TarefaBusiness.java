@@ -27,4 +27,8 @@ public class TarefaBusiness {
     public Tarefa buscarTarefa(long id) {
         return  tarefaDAO.findById(id);
     }
+
+    public void removerTarefa(Tarefa tarefa) {
+        tarefaDAO.delete(tarefa);
+    }
 }

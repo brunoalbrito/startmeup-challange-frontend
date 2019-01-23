@@ -145,7 +145,9 @@ public class TarefaBean {
     }
 
     public void excluirTarefa(){
-        System.out.println("Caiu aqui");
+        Tarefa tarefa = new Tarefa();
+        tarefa.setId(Long.parseLong(id));
+        tarefaBusiness.removerTarefa(tarefa);
     }
 
     private void limpaCampos(){

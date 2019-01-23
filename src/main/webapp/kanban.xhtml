@@ -111,10 +111,9 @@
                     </div>
 
                     <div class="col s8 input-field">
-                        <h:commandButton value="Salvar" action="#{tarefaBean.criarTarefa}"
+                        <h:commandButton process="@this" value="Salvar" action="#{tarefaBean.criarTarefa}"
                                          styleClass="s12 btn btn-large purple darken-4"></h:commandButton>
                     </div>
-                    <h:inputHidden value="${tarefaBean.tarefas}"/>
                 </div>
             </div>
         </h:form>
@@ -126,7 +125,7 @@
                 <div class="col s5 offset-s4 center-align">
                     <div class="col s10 input-field">
                         <p:inputText id="nomeEditar" value="#{tarefaBean.nome}" placeholder="Nome tarefa"
-                                     required="true"></p:inputText>
+                                     required="true" ></p:inputText>
                     </div>
 
                     <div class="col s5 offset-s1 input-field">
@@ -175,7 +174,6 @@
                         <h:commandButton value="Salvar" action="#{tarefaBean.criarTarefa}"
                                          styleClass="s12 btn btn-large purple darken-4"></h:commandButton>
                     </div>
-                    <h:inputHidden value="${tarefaBean.tarefas}"/>
                 </div>
             </div>
         </h:form>

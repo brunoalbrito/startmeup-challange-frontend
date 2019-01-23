@@ -135,10 +135,25 @@ public class TarefaBean {
     }
 
     public void buscarTarefa(){
-        statusEvento = StatusEvento.valueOf("EMPROGRESSO");
+        Tarefa tarefa = tarefaBusiness.buscarTarefa(Long.parseLong(id));
+        setNome(tarefa.getNome());
+        setDataInicio(tarefa.getDataInicio());
+        setDataFinal(tarefa.getDataFim());
+        setStatusEvento(tarefa.getStatusEvento());
+        setPrioridade(tarefa.getPrioridade());
+        statusEvento = StatusEvento.valueOf(tarefa.getStatusEvento().name());
     }
 
     public void excluirTarefa(){
         System.out.println("Caiu aqui");
+    }
+
+    private void limpaCampos(){
+        id = null;
+        nome = null;
+        dataInicio = null;
+        dataFinal = null;
+        prioridade = 0;
+        statusEvento = StatusEvento.valueOf("Iniciado");
     }
 }

@@ -23,4 +23,8 @@ public class TarefaBusiness {
     public void criarTarefa(Tarefa tarefa) {
             tarefaDAO.create(tarefa);
     }
+
+    public Tarefa buscarTarefa(long id) {
+        return  tarefaDAO.findById(id);
+    }
 }

@@ -54,7 +54,41 @@ public class TarefaDAO implements ITarefaDAO<Tarefa> {
 
     @Override
     public Tarefa findById(long id) {
-        return null;
+
+        Tarefa tarefa = new Tarefa();
+
+        String parameter = "/" + id;
+
+        try {
+            URL url = new URL(this.url + parameter);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setDoOutput(true);
+            connection.setRequestProperty("User-Agent", "Java client");
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            try {
+                int responseCode = connection.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    BufferedReader in = new BufferedReader(new InputStreamReader(
+                            connection.getInputStream()));
+                    String inputLine;
+                    StringBuffer response = new StringBuffer();
+
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                        tarefa = new Gson().fromJson(inputLine, Tarefa.class);
+                    }
+                    connection.disconnect();
+                    in.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return tarefa;
     }
 
     @Override
@@ -74,7 +108,7 @@ public class TarefaDAO implements ITarefaDAO<Tarefa> {
 
     @Override
     public List<Tarefa> findByUserId(long id) {
-        List<Tarefa> eventos = new ArrayList<>();
+        List<Tarefa> tarefas = new ArrayList<>();
 
         String parameter = "?idUsuario=" + id;
 
@@ -98,7 +132,7 @@ public class TarefaDAO implements ITarefaDAO<Tarefa> {
 
                     while ((inputLine = in.readLine()) != null) {
                         response.append(inputLine);
-                        eventos = new Gson().fromJson(inputLine, type);
+                        tarefas = new Gson().fromJson(inputLine, type);
                     }
                     connection.disconnect();
                     in.close();
@@ -110,6 +144,6 @@ public class TarefaDAO implements ITarefaDAO<Tarefa> {
             e.printStackTrace();
         }
 
-        return eventos;
+        return tarefas;
     }
 }
